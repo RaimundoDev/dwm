@@ -30,16 +30,13 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       2,            0,           -1 },
-	{ "Krita",    NULL,	  NULL,	      2, 	    0,		 -1 },
-	{ "Firefox",  NULL,       NULL,       0,       	    0,     	 -1 },
-	{ "Tor Browser", NULL,	  NULL,       0,	    0,		 -1 },
+	{ NULL,  NULL,       NULL,       0,       	    0,     	 -1 },
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.50; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
 #include "fibonacci.c"
 static const Layout layouts[] = {
@@ -67,6 +64,9 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu-recent-aliases", NULL };
 static const char *dmenuquit[] = { "sh", "/home/jun/.dotfiles/scripts/dmenuquit.sh", NULL };
 static const char *dmenuprint[] = { "sh", "/home/jun/.dotfiles/scripts/printscreen.sh", NULL };
+static const char *volumeup[] = { "sh", "/home/jun/.dotfiles/scripts/sound.sh", "up", "5", NULL };
+static const char *volumedown[] = { "sh", "/home/jun/.dotfiles/scripts/sound.sh", "down", "5", NULL };
+static const char *volumemute[] = { "sh", "/home/jun/.dotfiles/scripts/sound.sh", "mute", NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 static Key keys[] = {
@@ -105,6 +105,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+	{ MODKEY,			XK_F2,	   NULL,	    {.v = volumeup } },
+	{ MODKEY,			XK_F3,	   NULL,	    {.v = volumedown } },
+	{ MODKEY,			XK_F4,	   NULL,	    {.v = volumemute } },
 	{ NULL,				XK_Print,  spawn,	    {.v = dmenuprint } },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,           {.v = dmenuquit  } },
 };
